@@ -1,9 +1,6 @@
 <?php
 include('database.php');
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 // Fonction pour trier les questions par pourcentage de réussite
 function sortBySuccessPercentage($a, $b) {
     return $a['success_percentage'] - $b['success_percentage'];
