@@ -26,6 +26,21 @@ function getAllQuestions() {
     return $questions;
 }
 
+function getAllAttempts() {
+    global $conn;
+    $attempts = array();
+    $sql = "SELECT * FROM attempts";
+    $result = $conn->query($sql);
+
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $attempts[] = $row;
+        }
+    }
+
+    return $attempts;
+}
+
 function addQuestion($question, $answer, $success_message, $fail_message, $link) {
     global $conn;
     $stmt = $conn->prepare("INSERT INTO questions (question, answer, success_message, fail_message, link) VALUES (?, ?, ?, ?, ?)");

@@ -1,9 +1,6 @@
 <?php
 include('database.php');
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 // Vérifier si le lien est fourni dans la requête GET
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['link'])) {
     $link = $_GET['link'];
@@ -32,11 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Appel de la fonction pour calculer si la réponse est correcte
     $is_correct = calculateSuccess($question['answer'], $user_answer);
 
-    // Définir le message de succès ou d'échec
-    $success_message = $is_correct ? $question['success_message'] : $question['fail_message'];
-
     // Enregistrer la tentative dans la table attempts
     recordAttempt($question['id'], $user_answer, $is_correct);
+
+    // Définir le message de succès ou d'échec
+    $success_message = $is_correct ? $question['success_message'] : $question['fail_message'];
 }
 ?>
 
@@ -46,6 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Répondre à une question</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body>
     <?php if (isset($question)): ?>
